@@ -4,16 +4,19 @@ services:
   nodejs:
     build:
       context: .
-      target: dev
+      target: prod
     restart: unless-stopped
     deploy:
-      replicas: 1
+      replicas: 3
   loadbalancer:
     build:
       context: .
       dockerfile: Dockerfile.nginx
     image: nginx_proxy:v1
     ports:
-      - 3000:80
+      - 8080:80
+    deploy:
+      placement:
+        constraints: [node.role == manager]
     depends_on:
       - nodejs

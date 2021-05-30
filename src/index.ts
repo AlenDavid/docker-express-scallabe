@@ -2,6 +2,8 @@ import express from "express";
 
 export const app = express();
 
+const PORT = process.env.PORT || 3000;
+
 app.get("/", (req, res) => {
     res.json({ message: "OK" });
 });
@@ -17,7 +19,8 @@ app.get("/users", (req, res) => {
             name: "Pedro Hameister"
         }
     ];
+
     res.send({ data: users });
 });
 
-export const server = app.listen(3000);
+export const server = app.listen(PORT);
